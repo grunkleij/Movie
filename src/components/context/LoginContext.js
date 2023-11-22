@@ -10,13 +10,19 @@ export const LoginContextProvider=({children})=>{
 
       const logOut =()=>{
         setToken(null);
+        setYes(null);
       }
+      const [yes, setYes] = useState(() => {
+        const storedYes = localStorage.getItem('yes');
+        return storedYes ? JSON.parse(storedYes) : null;
+      });
 
       useEffect(() => {
         localStorage.setItem('token', JSON.stringify(token));
-      }, [token]);
+        localStorage.setItem('yes', JSON.stringify(yes));
+      }, [token,yes]);
     return(
-        <LoginContext.Provider value={{token,setToken,logOut}}>
+        <LoginContext.Provider value={{token,setToken,logOut,setYes,yes}}>
             {children}
         </LoginContext.Provider>
     )
