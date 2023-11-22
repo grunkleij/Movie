@@ -1,8 +1,9 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { LoginContext } from '../context/LoginContext'
-import { useNavigate } from 'react-router-dom'
-
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { auth } from '../firebase';
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [email,setEmail]=useState("")
@@ -11,24 +12,22 @@ const Login = () => {
   const navigate=useNavigate();
 
 
-  const handleLogin = ()=>{
+  const handleLogin = (e)=>{
     
-    axios.get(`http://localhost:1234/user/${email}`)
-    .then((res)=>{
-      console.log(res.data[0].password)
-      if(password===res.data[0].password){
-        console.log('successful login');
-        setToken(res.data[0]);
-        console.log(token);
-        navigate('/')
-      }
-      else{
-        console.log("password not matching")
-      }
-    })
-    .catch((err)=>{
-      console.log('email doesnt exists',err);
-    })
+    e.preventDefault();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            navigate("/")
+            setToken(user);
+            console.log(user.email,"hello");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        });
   }
 
   useEffect(() => {

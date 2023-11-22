@@ -1,51 +1,38 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from 'react-router-dom';
+import {  createUserWithEmailAndPassword  } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const Signup = () => {
-  const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
-    e.preventDefault(); // Prevent default form submission
-
-    const data = {
-      name,
-      email,
-      password,
-    };
-
-    axios.post('http://localhost:1234/user', data)
-      .then(() => {
-        console.log('User signed up successfully');
-        navigate('/');
-      })
-      .catch((err) => {
-        console.error('Error signing up:', err);
-      });
+  const handleSignup = async(e) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user);
+            navigate("/login")
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+            // ..
+        });
   };
 
   return (
     <div>
       <div className="container ml">
         <form>
-          <div className="form-group">
-            <label htmlFor="usernameId">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="usernameId"
-              aria-describedby="username"
-              placeholder="Enter username"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-          </div>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input

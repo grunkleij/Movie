@@ -97,7 +97,7 @@ const NavBar = () => {
               
               <p className="logout mx-3">
 
-              {token!==null&&`${token.name}`}
+              {token!==null&&`${token.email}`}
               </p>
               {token!==null&&<Link onClick={handleLogout} to='/' className="btn bstyle btn-danger mx-3" type="submit">
                 Logout
