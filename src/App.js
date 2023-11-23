@@ -5,6 +5,7 @@ import PopMovies from "./components/popMovies/PopMovies";
 import MovieDetails from "./components/movieDetails/MovieDetails";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
+import Watchlist from "./components/watchlist/Watchlist";
 
 function App() {
  
@@ -17,6 +18,7 @@ function App() {
           <Route path="/movied/:id" element={<MovieDetails/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/watchlist" element={<Watchlist/>}/>
           
         </Routes>
       </BrowserRouter>

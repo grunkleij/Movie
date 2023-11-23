@@ -1,10 +1,28 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { LoginContext } from "../context/LoginContext";
 
 const MovieDetails = () => {
   const [movied, setMovied] = useState([]);
   const { id } = useParams();
+  const {token}=useContext(LoginContext);
+
+  const handWatchList=()=>{
+    console.log(movied.id)
+    const data={
+      email:token.email,
+      movieWatchList:[movied.id]
+    }
+    axios.post("http://localhost:1234/user/",data)
+    .then((res)=>{
+      console.log("success")
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
   useEffect(() => {
     axios
       .get(
@@ -13,6 +31,7 @@ const MovieDetails = () => {
       .then((res) => {
         setMovied(res.data);
         console.log(res.data);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -34,11 +53,11 @@ const MovieDetails = () => {
       ></div>
 
       <div
-        className="title"
         style={{ position: "absolute", bottom: "8px", left: "16px", color:"white", fontSize:'100px',fontWeight:'bold'}}
       >
         {movied.title}
       </div>
+      <button onClick={handWatchList} className="btn btn-primary"> add to watchlist</button>
     </div>
   );
 };

@@ -57,6 +57,7 @@ const PopMovies = () => {
               const reqToken=res.data.request_token;
               window.location.href =`https://www.themoviedb.org/authenticate/${reqToken}?api_key=582913cbc1255e68ef241e0956a7ae7c&redirect_to=http://localhost:3000/`
               setYes(reqToken);
+             
             })
             .catch((err)=>{
               console.log(err);
@@ -75,6 +76,10 @@ const PopMovies = () => {
           .then((res)=>{
             const sessionId=res.data.session_id;
             console.log(sessionId,"session id");
+            axios.get(`https://api.themoviedb.org/3/account?api_key=582913cbc1255e68ef241e0956a7ae7c&session_id=${sessionId} `)
+            .then((res)=>{
+              console.log(res.data);
+            })
           })
           .catch((err)=>{
             console.log(err);
