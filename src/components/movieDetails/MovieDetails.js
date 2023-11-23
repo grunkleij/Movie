@@ -2,11 +2,15 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
+import { FaBookmark } from "react-icons/fa";
+import { CiBookmark } from "react-icons/ci";
+// import '..movieDetails/MovieDetails.css'
 
 const MovieDetails = () => {
   const [movied, setMovied] = useState([]);
   const { id } = useParams();
   const {token}=useContext(LoginContext);
+  const [wl,setWl]=useState(false);
 
   const handWatchList=()=>{
     console.log(movied.id)
@@ -37,6 +41,28 @@ const MovieDetails = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(()=>{
+    axios.get(`http://localhost:1234/user/${token.email}`)
+       .then((res) => {
+         const movieWatchList = res.data[0].movieWatchList;
+         
+         for (const e of movieWatchList) {
+           console.log(e, "hello");
+           if (e === id) {
+             console.log("yes");
+             setWl(true)
+             // Do something when the condition is true
+             return; // Break out of the loop
+           } else {
+             console.log("no");
+             setWl(false);
+           }
+         }
+       })
+  },[])
+
+
   return (
     <div>
       <div
@@ -56,8 +82,13 @@ const MovieDetails = () => {
         style={{ position: "absolute", bottom: "8px", left: "16px", color:"white", fontSize:'100px',fontWeight:'bold'}}
       >
         {movied.title}
+      <p onClick={handWatchList} className="watchlist"> {
+       
+     console.log(wl)
+   }
+      sdfsf
+     </p>
       </div>
-      <button onClick={handWatchList} className="btn btn-primary"> add to watchlist</button>
     </div>
   );
 };

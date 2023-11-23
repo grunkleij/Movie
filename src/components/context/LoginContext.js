@@ -16,6 +16,7 @@ export const LoginContextProvider=({children})=>{
         const storedYes = localStorage.getItem('yes');
         return storedYes ? JSON.parse(storedYes) : null;
       });
+      
 
       useEffect(() => {
         localStorage.setItem('token', JSON.stringify(token));

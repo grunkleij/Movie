@@ -48,7 +48,7 @@ const Watchlist = () => {
 
       {
           movied.map((e) => (
-              <Card className="shadow" image={e.poster_path} key={e.id} title={e.original_title} />
+              <Card className="shadow" id={e.id}  image={e.poster_path} key={e.id} title={e.original_title}  />
               ))
             }
       {/* Additional JSX */}
