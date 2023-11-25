@@ -25,6 +25,7 @@ const Watchlist = () => {
         // Set movies state and then proceed with the additional logic
 
         setMovies(watchArray);
+        console.log("yes")
 
         // Additional logic for each movie in the watch list  
         const moviePromises = watchArray.map((e) => {
