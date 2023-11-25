@@ -3,14 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {LoginContextProvider } from "./components/context/LoginContext";
+import { LoginContextProvider } from "./components/context/LoginContext";
+import { WatchlistContextProvider } from "./components/context/WatchlistContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LoginContextProvider>
-      <App />
-    </LoginContextProvider>
+      <LoginContextProvider>
+    <WatchlistContextProvider>
+        <App />
+    </WatchlistContextProvider>
+      </LoginContextProvider>
   </React.StrictMode>
 );
 

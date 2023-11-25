@@ -7,10 +7,13 @@ import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import Watchlist from "./components/watchlist/Watchlist";
 
+
 function App() {
  
   return (
     <div className="App">
+
+        
       <BrowserRouter>
         <NavBar />
         <Routes>
@@ -22,6 +25,7 @@ function App() {
           
         </Routes>
       </BrowserRouter>
+
     </div>
   );
 }

@@ -12,7 +12,9 @@ const MovieDetails = () => {
   const {token}=useContext(LoginContext);
   const [wl,setWl]=useState(false);
 
+
   const handWatchList=()=>{
+    
     console.log(movied.id)
     const data={
       email:token.email,
@@ -21,6 +23,7 @@ const MovieDetails = () => {
     axios.post("http://localhost:1234/user/",data)
     .then((res)=>{
       console.log("success")
+      console.log("id:",id)
     })
     .catch((err)=>{
       console.log(err);
